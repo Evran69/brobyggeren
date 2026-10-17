@@ -29,61 +29,133 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top left, #eff6ff 0%, #f8fafc 45%, #fef2f2 100%);
+            background: radial-gradient(circle at 10% 10%, #f0f7ff 0%, #f8fafc 40%, #fdf4f4 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        body.xmas-mode {
+            background: radial-gradient(circle at 15% 15%, #e0f2fe 0%, #f8fafc 35%, #fef2f2 70%, #ecfdf5 100%);
         }
 
         h1, h2, h3, h4, .font-display {
             font-family: 'Fredoka', sans-serif;
+            letter-spacing: -0.01em;
         }
 
+        /* Modern, elegant button styling */
         .btn-game {
-            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 0 0 rgba(15, 23, 42, 0.18);
+            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 4px -1px rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
             transform: translateY(0);
         }
         .btn-game:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0 0 rgba(15, 23, 42, 0.22);
+            transform: translateY(-1.5px);
+            box-shadow: 0 6px 14px -2px rgba(15, 23, 42, 0.12), 0 2px 4px -1px rgba(15, 23, 42, 0.06);
         }
         .btn-game:active:not(:disabled) {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 0 rgba(15, 23, 42, 0.2);
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.08);
         }
 
+        /* Modern, clean card aesthetics with soft layered shadows */
         .card-3d {
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 5px 0 0 #e2e8f0, 0 8px 15px -3px rgba(0, 0, 0, 0.06);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+            border: 1.5px solid #e2e8f0;
         }
         .card-3d:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 0 0 #cbd5e1, 0 14px 20px -3px rgba(0, 0, 0, 0.09);
+            box-shadow: 0 10px 22px -4px rgba(15, 23, 42, 0.1), 0 3px 6px -2px rgba(15, 23, 42, 0.05);
+            border-color: #cbd5e1;
         }
         .card-3d.selected-no {
-            border-color: #f59e0b;
-            background-color: #fffbeb;
-            box-shadow: 0 5px 0 0 #d97706;
-            transform: scale(1.02);
+            border-color: #f59e0b !important;
+            background-color: #fffbeb !important;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3), 0 8px 18px -4px rgba(245, 158, 11, 0.25) !important;
+            transform: translateY(-2px) scale(1.02);
         }
         .card-3d.selected-en {
-            border-color: #ef4444;
-            background-color: #fef2f2;
-            box-shadow: 0 5px 0 0 #dc2626;
-            transform: scale(1.02);
+            border-color: #ef4444 !important;
+            background-color: #fef2f2 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3), 0 8px 18px -4px rgba(239, 68, 68, 0.25) !important;
+            transform: translateY(-2px) scale(1.02);
         }
         .card-3d.selected-fr {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
-            box-shadow: 0 5px 0 0 #2563eb;
-            transform: scale(1.02);
+            border-color: #3b82f6 !important;
+            background-color: #eff6ff !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3), 0 8px 18px -4px rgba(59, 130, 246, 0.25) !important;
+            transform: translateY(-2px) scale(1.02);
         }
         .card-3d.matched {
-            opacity: 0.35;
+            opacity: 0.32;
             pointer-events: none;
-            transform: scale(0.96);
-            box-shadow: none;
-            background-color: #f1f5f9;
+            transform: scale(0.97);
+            box-shadow: none !important;
+            background-color: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* Christmas fairy lights garland */
+        .xmas-garland {
+            height: 12px;
+            pointer-events: none;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 12px;
+            overflow: hidden;
+            transition: opacity 0.4s ease;
+        }
+        .xmas-light {
+            width: 7px;
+            height: 11px;
+            border-radius: 50% 50% 35% 35%;
+            margin: 0 4px;
+            animation: lightGlow 1.8s infinite alternate ease-in-out;
+        }
+        .xmas-light:nth-child(4n+1) { background: #ef4444; box-shadow: 0 0 8px #ef4444; animation-delay: 0s; }
+        .xmas-light:nth-child(4n+2) { background: #eab308; box-shadow: 0 0 8px #eab308; animation-delay: 0.45s; }
+        .xmas-light:nth-child(4n+3) { background: #10b981; box-shadow: 0 0 8px #10b981; animation-delay: 0.9s; }
+        .xmas-light:nth-child(4n+4) { background: #3b82f6; box-shadow: 0 0 8px #3b82f6; animation-delay: 1.35s; }
+
+        @keyframes lightGlow {
+            0% { opacity: 0.35; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1.15); }
+        }
+
+        /* Mode Tabs Segmented Control */
+        .mode-tab {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+        }
+        .mode-tab.tab-active {
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px -2px rgba(79, 70, 229, 0.35) !important;
+            border-color: #4338ca !important;
+        }
+        body.xmas-mode .mode-tab.tab-active {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+            box-shadow: 0 4px 14px -2px rgba(220, 38, 38, 0.4) !important;
+            border-color: #991b1b !important;
+        }
+        .mode-tab.tab-inactive {
+            background-color: #ffffff;
+            color: #475569;
+            border-color: #e2e8f0;
+        }
+        .mode-tab.tab-inactive:hover {
+            background-color: #f8fafc;
+            color: #0f172a;
             border-color: #cbd5e1;
         }
 
@@ -140,11 +212,17 @@
     <!-- Confetti Canvas Overlay -->
     <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
 
+    <!-- Christmas Snow Canvas Overlay -->
+    <canvas id="snow-canvas" class="fixed inset-0 pointer-events-none z-30 w-full h-full"></canvas>
+
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
 
     <!-- Top Header / Gamification HUD -->
-    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/95 border-b-2 border-slate-200 shadow-sm">
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-white/95 border-b border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] relative">
+        <!-- Festive Holiday Garland Lights -->
+        <div id="xmas-garland" class="xmas-garland absolute top-0 left-0 w-full z-10 hidden"></div>
+
         <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 sm:gap-3">
             
             <!-- Brand Title & Logo -->
@@ -152,13 +230,17 @@
                 <div class="relative w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-rose-500 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
                     <span class="text-2xl">🌍</span>
                     <span class="absolute -bottom-1 -right-1 text-[11px] bg-white rounded-full px-1 shadow font-bold">🇬🇧🇫🇷</span>
+                    <span id="brand-santa-hat" class="absolute -top-3 -left-2 text-xl transform -rotate-12 select-none pointer-events-none drop-shadow hidden">🎅</span>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
                         <h1 class="text-xl sm:text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-700 via-indigo-700 to-red-600 bg-clip-text text-transparent">
                             LinguaQuest
                         </h1>
-                        <span class="hidden xl:inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">
+                        <span id="brand-xmas-badge" class="hidden text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200 items-center gap-1 shadow-sm">
+                            <span>🎄</span><span>Jul</span>
+                        </span>
+                        <span class="hidden xl:inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/80">
                             LK20 • 6.–9. Trinn
                         </span>
                     </div>
@@ -166,21 +248,30 @@
                 </div>
             </div>
 
-            <!-- Feature A: English Level Differentiator Toggle -->
-            <div class="flex items-center bg-slate-100 p-1 rounded-2xl border-2 border-slate-200" title="Velg vanskelighetsgrad for Engelsk (Basis for 6.–7. trinn eller Britisk Idiom & Ungdomsskole for 8.–9. trinn)">
-                <button onclick="setEnglishLevel(1)" id="en-lvl-1" class="px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1 bg-white text-slate-900 shadow-sm">
-                    <span>🌱</span>
-                    <span>Nivå 1 <span class="hidden sm:inline">(6.–7. trinn)</span></span>
-                </button>
-                <button onclick="setEnglishLevel(2)" id="en-lvl-2" class="px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1 text-slate-600 hover:text-slate-900">
-                    <span>🚀</span>
-                    <span>Nivå 2: UK+ <span class="hidden sm:inline">(8.–9. trinn)</span></span>
+            <!-- Middle Toolbar: Level Switch & Christmas Toggle -->
+            <div class="flex items-center gap-2">
+                <!-- English Level Differentiator -->
+                <div class="flex items-center bg-slate-100/90 p-1 rounded-2xl border border-slate-200" title="Velg vanskelighetsgrad for Engelsk (Basis for 6.–7. trinn eller Britisk Idiom & Ungdomsskole for 8.–9. trinn)">
+                    <button onclick="setEnglishLevel(1)" id="en-lvl-1" class="px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1 bg-white text-slate-900 shadow-sm">
+                        <span>🌱</span>
+                        <span>Nivå 1 <span class="hidden sm:inline">(6.–7. trinn)</span></span>
+                    </button>
+                    <button onclick="setEnglishLevel(2)" id="en-lvl-2" class="px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1 text-slate-600 hover:text-slate-900">
+                        <span>🚀</span>
+                        <span>Nivå 2: UK+ <span class="hidden sm:inline">(8.–9. trinn)</span></span>
+                    </button>
+                </div>
+
+                <!-- Christmas Spirit Toggle Button -->
+                <button id="btn-xmas-toggle" onclick="toggleXmasMode()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl text-xs font-bold transition-all border shadow-sm bg-gradient-to-r from-red-600 via-rose-600 to-emerald-600 text-white border-red-500 hover:brightness-105" title="Slå julestemning og snøfall av eller på">
+                    <span class="text-sm">🎄</span>
+                    <span id="btn-xmas-label">Jul: PÅ</span>
                 </button>
             </div>
 
             <!-- Player Stats Bar -->
             <div class="flex items-center gap-1.5 sm:gap-2 ml-auto">
-                <div onclick="switchMode('lab')" class="cursor-pointer hidden md:flex items-center gap-1.5 bg-emerald-50 border-2 border-emerald-200 px-2.5 py-1.5 rounded-2xl hover:bg-emerald-100 transition-colors" title="Ord du har merket som lært">
+                <div onclick="switchMode('lab')" class="cursor-pointer hidden md:flex items-center gap-1.5 bg-emerald-50/90 border border-emerald-200/90 px-2.5 py-1.5 rounded-2xl hover:bg-emerald-100 transition-colors shadow-sm" title="Ord du har merket som lært">
                     <span class="text-base">⭐</span>
                     <div>
                         <div class="text-[10px] uppercase font-bold text-emerald-700 leading-none">Mestret</div>
@@ -188,7 +279,7 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-1.5 bg-orange-50 border-2 border-orange-200 px-2.5 py-1.5 rounded-2xl" title="Nåværende seiersrekke (Streak)">
+                <div class="flex items-center gap-1.5 bg-orange-50/90 border border-orange-200/90 px-2.5 py-1.5 rounded-2xl shadow-sm" title="Nåværende seiersrekke (Streak)">
                     <span class="text-base sm:text-lg">🔥</span>
                     <div>
                         <div class="text-[10px] uppercase font-bold text-orange-600 leading-none">Streak</div>
@@ -196,7 +287,7 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 bg-amber-50 border-2 border-amber-200 px-2.5 py-1.5 rounded-2xl">
+                <div class="flex items-center gap-2 bg-amber-50/90 border border-amber-200/90 px-2.5 py-1.5 rounded-2xl shadow-sm">
                     <div class="w-7 h-7 rounded-xl bg-amber-400 text-amber-950 font-display font-bold flex items-center justify-center text-xs shadow-inner" id="hud-level-badge">
                         1
                     </div>
@@ -205,50 +296,52 @@
                             <span id="hud-rank-title" class="truncate max-w-[55px] sm:max-w-none">Turist</span>
                             <span><span id="hud-xp">0</span> XP</span>
                         </div>
-                        <div class="w-full h-2 bg-amber-200 rounded-full overflow-hidden">
+                        <div class="w-full h-2 bg-amber-200/80 rounded-full overflow-hidden">
                             <div id="hud-xp-bar" class="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-500" style="width: 10%"></div>
                         </div>
                     </div>
                 </div>
 
-                <button onclick="openPassportModal()" class="btn-game relative flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-display font-semibold px-2.5 sm:px-3 py-2 rounded-2xl text-xs sm:text-sm">
+                <button onclick="openPassportModal()" class="btn-game relative flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-display font-semibold px-2.5 sm:px-3 py-2 rounded-2xl text-xs sm:text-sm shadow-sm">
                     <i class="ph-fill ph-passport text-base sm:text-lg"></i>
                     <span class="hidden lg:inline">Pass</span>
                     <span id="hud-stamps-badge" class="bg-amber-400 text-slate-900 text-[11px] font-extrabold px-1.5 py-0.5 rounded-full">0/12</span>
                 </button>
 
-                <button id="sound-toggle-btn" onclick="toggleMute()" class="btn-game bg-slate-100 hover:bg-slate-200 text-slate-700 p-2 rounded-2xl border border-slate-300" title="Slå av/på lydeffekter">
+                <button id="sound-toggle-btn" onclick="toggleMute()" class="btn-game bg-white hover:bg-slate-100 text-slate-700 p-2 rounded-2xl border border-slate-200 shadow-sm" title="Slå av/på lydeffekter">
                     <i id="sound-icon" class="ph-fill ph-speaker-high text-base sm:text-lg"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Navigation Tabs (6 Game Modes) -->
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 pt-1 pb-2.5 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar">
-            <button onclick="switchMode('bridge')" id="tab-bridge" class="mode-tab btn-game flex-1 min-w-[130px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-indigo-600 text-white border-2 border-indigo-700">
-                <span>🌉</span>
-                <span>1. Brobyggeren</span>
-            </button>
-            <button onclick="switchMode('cafe')" id="tab-cafe" class="mode-tab btn-game flex-1 min-w-[140px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-white text-slate-700 border-2 border-slate-200 hover:bg-slate-50">
-                <span>🥐</span>
-                <span>2. Kafé & Reise</span>
-            </button>
-            <button onclick="switchMode('sentence')" id="tab-sentence" class="mode-tab btn-game flex-1 min-w-[150px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-white text-slate-700 border-2 border-slate-200 hover:bg-slate-50">
-                <span>🧩</span>
-                <span>3. Setnings-Bygger</span>
-            </button>
-            <button onclick="switchMode('verbs')" id="tab-verbs" class="mode-tab btn-game flex-1 min-w-[155px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-white text-slate-700 border-2 border-slate-200 hover:bg-slate-50">
-                <span>⚡</span>
-                <span>4. Verb-Mesterskap</span>
-            </button>
-            <button onclick="switchMode('racer')" id="tab-racer" class="mode-tab btn-game flex-1 min-w-[135px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-white text-slate-700 border-2 border-slate-200 hover:bg-slate-50">
-                <span>🚀</span>
-                <span>5. Ord-Racer</span>
-            </button>
-            <button onclick="switchMode('lab')" id="tab-lab" class="mode-tab btn-game flex-1 min-w-[175px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-white text-slate-700 border-2 border-slate-200 hover:bg-slate-50">
-                <span>📖</span>
-                <span>6. Ordbok, Skriv & Lab</span>
-            </button>
+        <!-- Navigation Tabs (6 Game Modes) - Modern Segmented Control -->
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 pt-1 pb-2.5">
+            <div class="bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/70 flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar shadow-inner">
+                <button onclick="switchMode('bridge')" id="tab-bridge" class="mode-tab btn-game tab-active flex-1 min-w-[130px] flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl font-display font-semibold text-xs sm:text-sm border">
+                    <span>🌉</span>
+                    <span>1. Brobyggeren</span>
+                </button>
+                <button onclick="switchMode('cafe')" id="tab-cafe" class="mode-tab btn-game tab-inactive flex-1 min-w-[135px] flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl font-display font-semibold text-xs sm:text-sm border">
+                    <span>🥐</span>
+                    <span>2. Kafé & Reise</span>
+                </button>
+                <button onclick="switchMode('sentence')" id="tab-sentence" class="mode-tab btn-game tab-inactive flex-1 min-w-[145px] flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl font-display font-semibold text-xs sm:text-sm border">
+                    <span>🧩</span>
+                    <span>3. Setnings-Bygger</span>
+                </button>
+                <button onclick="switchMode('verbs')" id="tab-verbs" class="mode-tab btn-game tab-inactive flex-1 min-w-[150px] flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl font-display font-semibold text-xs sm:text-sm border">
+                    <span>⚡</span>
+                    <span>4. Verb-Mesterskap</span>
+                </button>
+                <button onclick="switchMode('racer')" id="tab-racer" class="mode-tab btn-game tab-inactive flex-1 min-w-[130px] flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl font-display font-semibold text-xs sm:text-sm border">
+                    <span>🚀</span>
+                    <span>5. Ord-Racer</span>
+                </button>
+                <button onclick="switchMode('lab')" id="tab-lab" class="mode-tab btn-game tab-inactive flex-1 min-w-[165px] flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl font-display font-semibold text-xs sm:text-sm border">
+                    <span>📖</span>
+                    <span>6. Ordbok & Lab</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -435,7 +528,10 @@
 
                     <div class="relative z-10 my-5 space-y-4">
                         <div class="flex items-center gap-4">
-                            <div id="cafe-npc-avatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-white/95 text-4xl sm:text-5xl flex items-center justify-center shadow-lg border-4 border-amber-300 shrink-0">👨‍🍳</div>
+                            <div class="relative shrink-0">
+                                <div id="cafe-npc-avatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-white/95 text-4xl sm:text-5xl flex items-center justify-center shadow-lg border-4 border-amber-300">👨‍🍳</div>
+                                <span id="cafe-santa-hat" class="absolute -top-3 -right-2 text-2xl transform rotate-12 select-none pointer-events-none drop-shadow hidden">🎅</span>
+                            </div>
                             <div>
                                 <div id="cafe-npc-name" class="font-display font-bold text-xl text-amber-300">Kelner</div>
                                 <div id="cafe-npc-role" class="text-xs text-white/80">Kafé & Restaurant</div>
@@ -1382,7 +1478,8 @@
             unlockedStamps: [],
             masteredWords: [],
             muted: false,
-            englishLevel: 1
+            englishLevel: 1,
+            xmasMode: true
         };
 
         let currentMode = 'bridge';
@@ -1486,12 +1583,14 @@
                     if (!Array.isArray(playerState.masteredWords)) playerState.masteredWords = [];
                     if (!Array.isArray(playerState.unlockedStamps)) playerState.unlockedStamps = [];
                     if (!playerState.englishLevel) playerState.englishLevel = 1;
+                    if (playerState.xmasMode === undefined) playerState.xmasMode = true;
                 }
             } catch (e) {
                 console.warn('Kunne ikke laste lagret status:', e);
             }
             updateHUD();
             updateEnglishLevelUI();
+            applyXmasMode();
         }
 
         function saveState() {
@@ -1637,6 +1736,20 @@
                     osc.start(now + idx * 0.09);
                     osc.stop(now + idx * 0.09 + 0.32);
                 });
+            } else if (type === 'xmasJingle') {
+                const jingle = [1567.98, 1760.00, 2093.00, 2637.02, 3135.96];
+                jingle.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+                    gain.gain.setValueAtTime(0.08, now + idx * 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.05 + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.05);
+                    osc.stop(now + idx * 0.05 + 0.35);
+                });
             }
         }
 
@@ -1646,6 +1759,145 @@
             icon.className = playerState.muted ? 'ph-fill ph-speaker-slash text-base sm:text-lg text-rose-600' : 'ph-fill ph-speaker-high text-base sm:text-lg';
             saveState();
             showToast(playerState.muted ? '🔇 Lydeffekter slått av' : '🔊 Lydeffekter slått på', 'info');
+        }
+
+        // ==========================================
+        // CHRISTMAS SPIRIT & SNOW OVERLAY SYSTEM
+        // ==========================================
+        let snowAnimationId = null;
+        let snowflakes = [];
+
+        function initSnowCanvas() {
+            const canvas = document.getElementById('snow-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            function resizeSnow() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.removeEventListener('resize', resizeSnow);
+            window.addEventListener('resize', resizeSnow);
+            resizeSnow();
+
+            const count = Math.min(65, Math.floor(window.innerWidth / 20));
+            snowflakes = [];
+            for (let i = 0; i < count; i++) {
+                snowflakes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2.8 + 1.2,
+                    speedY: Math.random() * 1.2 + 0.6,
+                    speedX: (Math.random() - 0.5) * 0.8,
+                    opacity: Math.random() * 0.7 + 0.3,
+                    swing: Math.random() * Math.PI * 2,
+                    swingSpeed: Math.random() * 0.02 + 0.01
+                });
+            }
+
+            function animateSnow() {
+                if (!playerState.xmasMode) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < snowflakes.length; i++) {
+                    const sf = snowflakes[i];
+                    sf.swing += sf.swingSpeed;
+                    sf.y += sf.speedY;
+                    sf.x += Math.sin(sf.swing) * 0.5 + sf.speedX;
+
+                    if (sf.y > canvas.height + 5) {
+                        sf.y = -5;
+                        sf.x = Math.random() * canvas.width;
+                    }
+                    if (sf.x > canvas.width + 5) sf.x = -5;
+                    else if (sf.x < -5) sf.x = canvas.width + 5;
+
+                    ctx.beginPath();
+                    ctx.arc(sf.x, sf.y, sf.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${sf.opacity})`;
+                    ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+                    ctx.shadowBlur = 4;
+                    ctx.fill();
+                }
+
+                snowAnimationId = requestAnimationFrame(animateSnow);
+            }
+
+            if (snowAnimationId) cancelAnimationFrame(snowAnimationId);
+            if (playerState.xmasMode) {
+                snowAnimationId = requestAnimationFrame(animateSnow);
+            }
+        }
+
+        function buildXmasGarland() {
+            const garland = document.getElementById('xmas-garland');
+            if (!garland || garland.children.length > 0) return;
+            garland.innerHTML = '';
+            const numLights = 28;
+            for (let i = 0; i < numLights; i++) {
+                const light = document.createElement('div');
+                light.className = 'xmas-light';
+                garland.appendChild(light);
+            }
+        }
+
+        function toggleXmasMode() {
+            playerState.xmasMode = !playerState.xmasMode;
+            saveState();
+            applyXmasMode();
+            if (playerState.xmasMode) {
+                playSound('xmasJingle');
+                showToast('🎄 Julestemning aktivert! God jul og bonne fête! 🎅❄️', 'info');
+            } else {
+                playSound('click');
+                showToast('❄️ Julestemning slått av', 'info');
+            }
+        }
+
+        function applyXmasMode() {
+            const isXmas = !!playerState.xmasMode;
+            const body = document.body;
+            const btnLabel = document.getElementById('btn-xmas-label');
+            const btn = document.getElementById('btn-xmas-toggle');
+            const garland = document.getElementById('xmas-garland');
+            const santaHat = document.getElementById('brand-santa-hat');
+            const xmasBadge = document.getElementById('brand-xmas-badge');
+            const cafeHat = document.getElementById('cafe-santa-hat');
+            const canvas = document.getElementById('snow-canvas');
+
+            if (isXmas) {
+                body.classList.add('xmas-mode');
+                if (btnLabel) btnLabel.textContent = 'Jul: PÅ';
+                if (btn) {
+                    btn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-2xl text-xs font-bold transition-all border shadow-sm bg-gradient-to-r from-red-600 via-rose-600 to-emerald-600 text-white border-red-500 hover:brightness-105';
+                }
+                if (garland) garland.classList.remove('hidden');
+                if (santaHat) santaHat.classList.remove('hidden');
+                if (xmasBadge) xmasBadge.classList.remove('hidden');
+                if (cafeHat) cafeHat.classList.remove('hidden');
+                if (canvas) canvas.classList.remove('hidden');
+                buildXmasGarland();
+                initSnowCanvas();
+            } else {
+                body.classList.remove('xmas-mode');
+                if (btnLabel) btnLabel.textContent = 'Jul: AV';
+                if (btn) {
+                    btn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-2xl text-xs font-bold transition-all border shadow-sm bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300';
+                }
+                if (garland) garland.classList.add('hidden');
+                if (santaHat) santaHat.classList.add('hidden');
+                if (xmasBadge) xmasBadge.classList.add('hidden');
+                if (cafeHat) cafeHat.classList.add('hidden');
+                if (canvas) {
+                    canvas.classList.add('hidden');
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+                if (snowAnimationId) {
+                    cancelAnimationFrame(snowAnimationId);
+                    snowAnimationId = null;
+                }
+            }
         }
 
         function speakText(text, langCode = 'en-GB') {
@@ -1787,16 +2039,19 @@
             currentMode = mode;
 
             document.querySelectorAll('.game-section').forEach(sec => sec.classList.add('hidden'));
-            document.getElementById(`mode-${mode}`).classList.remove('hidden');
+            const targetSec = document.getElementById(`mode-${mode}`);
+            if (targetSec) targetSec.classList.remove('hidden');
 
             const tabs = ['bridge', 'cafe', 'sentence', 'verbs', 'racer', 'lab'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
                 if (!btn) return;
                 if (t === mode) {
-                    btn.className = 'mode-tab btn-game flex-1 min-w-[135px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-indigo-600 text-white border-2 border-indigo-700';
+                    btn.classList.add('tab-active');
+                    btn.classList.remove('tab-inactive');
                 } else {
-                    btn.className = 'mode-tab btn-game flex-1 min-w-[135px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-2xl font-display font-semibold text-xs sm:text-sm bg-white text-slate-700 border-2 border-slate-200 hover:bg-slate-50';
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('tab-inactive');
                 }
             });
 
@@ -2078,7 +2333,8 @@
             const sceneCard = document.getElementById('cafe-scene-card');
             sceneCard.className = `lg:col-span-5 rounded-3xl p-6 text-white shadow-xl bg-gradient-to-br ${sc.gradient} relative overflow-hidden min-h-[360px] flex flex-col justify-between`;
 
-            document.getElementById('cafe-location-badge').textContent = isFr ? sc.badgeFr : sc.badgeEn;
+            const locText = isFr ? sc.badgeFr : sc.badgeEn;
+            document.getElementById('cafe-location-badge').innerHTML = playerState.xmasMode ? `🎄 ${locText} ❄️` : locText;
             document.getElementById('cafe-step-counter').textContent = `Oppdrag ${currentScenarioIndex + 1} av ${list.length}`;
             document.getElementById('cafe-npc-avatar').textContent = sc.avatar;
             document.getElementById('cafe-npc-name').textContent = isFr ? sc.nameFr : sc.nameEn;
@@ -3118,17 +3374,22 @@
 
         function triggerConfetti() {
             const canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            const particles = Array.from({ length: 90 }, () => ({
+            const palette = playerState.xmasMode
+                ? ['#ef4444', '#10b981', '#f59e0b', '#38bdf8', '#ffffff', '#fbbf24']
+                : ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#8b5cf6'];
+
+            const particles = Array.from({ length: 95 }, () => ({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height - canvas.height,
                 r: Math.random() * 6 + 3,
                 dx: Math.random() * 4 - 2,
                 dy: Math.random() * 5 + 3,
-                color: ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#8b5cf6'][Math.floor(Math.random() * 5)]
+                color: palette[Math.floor(Math.random() * palette.length)]
             }));
 
             let frame = 0;
@@ -3150,7 +3411,14 @@
         }
 
         window.onload = function() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = () => {
+                    try { window.speechSynthesis.getVoices(); } catch (e) {}
+                };
+                try { window.speechSynthesis.getVoices(); } catch (e) {}
+            }
             loadState();
+            applyXmasMode();
             switchMode('bridge');
         };
     </script>
